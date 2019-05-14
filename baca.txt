@@ -1,0 +1,1 @@
+pak jangan lupa di php artisan storage:link
