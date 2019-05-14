@@ -26,7 +26,7 @@
       <a  class="nav-link active" href='{{url('frontoffice/doctorschedule')}}'>Doctor Schedule</a>
     </li>
     <li class="nav-item"  style="font-size:12px;">
-      <a style="color:white;" class="nav-link" href="#">Doctor Data</a>
+      <a style="color:white;" class="nav-link" href='{{url('frontoffice/doctor')}}'>Doctor Data</a>
     </li>
   </ul>
     @endsection

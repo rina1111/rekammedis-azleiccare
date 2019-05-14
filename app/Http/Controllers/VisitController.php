@@ -12,6 +12,7 @@ class VisitController extends Controller
     public function index()
     {
       $visit = DB::table('visits')
+
               ->get();
         return view('/frontoffice/datavisit', ['visit' => $visit ]);
 
@@ -25,6 +26,8 @@ class VisitController extends Controller
           $visit->id_pasien = $request->get('id_pasien');
           $visit->id_dokter =$request->get('id_dokter');
           $visit->status =$request->get('status');
+          $visit->status_obat =$request->get('status_obat');
+
 
           if($visit->save()){
                 return redirect('/frontoffice/pasiendata')->with('sukses','Data has been saved');
@@ -47,6 +50,7 @@ class VisitController extends Controller
     $id_pasien=$_POST['id_pasien'];
       $id_dokter=$_POST['id_dokter'];
       $status=$_POST['status'];
+      $status_obat=$_POST['status_obat'];
 
       $visit= DB::table('visits')
                  ->where('id', $id)
@@ -54,6 +58,7 @@ class VisitController extends Controller
                   'id_dokter'=> $id_dokter,
                   'id_pasien'=> $id_pasien,
                   'status'=> $status,
+                  'status_obat'=> $status_obat,
                 ]);
 
          return redirect('/frontoffice/datavisit')->with('sukses','data has been updated');
@@ -97,6 +102,21 @@ class VisitController extends Controller
                 ->update([
 
                   'status'=> $status,
+                ]);
+
+         return redirect('/dokter/visitor')->with('sukses','Status has been updated');
+    }
+
+    public function updatestatus_obat(Request $request,$id)
+    {
+
+      $status_obat=$_POST['status_obat'];
+
+      $visit= DB::table('visits')
+                 ->where('visits.id', $id)
+                ->update([
+
+                  'status_obat'=> $status_obat,
                 ]);
 
          return redirect('/dokter/visitor')->with('sukses','Status has been updated');

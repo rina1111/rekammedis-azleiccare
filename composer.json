@@ -10,11 +10,14 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "hardevine/shoppingcart": "^2.6",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.8.0",
+        "moltin/laravel-cart": "^5.0",
         "pusher/pusher-php-server": "^3.4",
         "uxweb/sweet-alert": "^2.0",
+        "webpatser/laravel-uuid": "^3.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

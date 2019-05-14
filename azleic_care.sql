@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Bulan Mei 2019 pada 05.36
+-- Waktu pembuatan: 23 Apr 2019 pada 05.16
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.2.12
 
@@ -25,6 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `checkouts`
+--
+
+CREATE TABLE `checkouts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `hp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `code`
 --
 
@@ -38,7 +52,7 @@ CREATE TABLE `code` (
 --
 
 INSERT INTO `code` (`code_id`, `code`) VALUES
-(1, '0');
+(1, 'ea5f7fbf-f33e-4a4e-b5ee-086d5e5450b5');
 
 -- --------------------------------------------------------
 
@@ -1783,7 +1797,7 @@ CREATE TABLE `dokters` (
 
 INSERT INTO `dokters` (`id`, `nip`, `name_dokter`, `specialist`, `address`, `hp`, `avatar`, `username`, `password`, `status_dokter`, `created_at`, `updated_at`) VALUES
 (1, '198503302003121225', 'dr.Elisa Ramadanti', 'Dokter Umum', 'jl. A.H.Natution no 30', '02263075716', 'avatar/BXx96RvNgIpD6p7nTp2A4tf2YtLYtqiKOJo3ldRP.jpeg', 'dokter_elisa', '$2y$10$1ByvxI/jvvAn4zwAN7hw8uIGRxEoWnArmc.zHuSwZ/4NcVwaHTO8S', 'ada', '2019-04-07 04:26:27', '2019-04-07 04:26:27'),
-(2, '198503302003121001', 'dr.Rani Irawan', 'Dokter Umum', 'jl. A.H.Natution no 30', '02263075716', 'avatar/vd7eWwtkq61KFElVBEWs4cOzPi7JT6cw1BD8V6WY.jpeg', 'dokter_rani', '$2y$10$gGgeRDMNwqO526kQ1rVLwO6OSZA5d0B3f5nGl.zgTZDwmxVBELqAO', 'ada', '2019-04-07 04:27:04', '2019-04-07 04:27:04');
+(2, '198503302003121001', 'dr.Rani Irawan', 'Dokter Umum', 'jl. A.H.Natution no 30', '02263075716', 'avatar/vd7eWwtkq61KFElVBEWs4cOzPi7JT6cw1BD8V6WY.jpeg', 'dokter_rani', '$2y$10$gGgeRDMNwqO526kQ1rVLwO6OSZA5d0B3f5nGl.zgTZDwmxVBELqAO', 'not checked', '2019-04-07 04:27:04', '2019-04-07 04:27:04');
 
 -- --------------------------------------------------------
 
@@ -1797,7 +1811,7 @@ CREATE TABLE `medicals` (
   `diagnosa` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `keluhan` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `saran` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fee` float(8,2) NOT NULL,
+  `fee` decimal(8,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1807,9 +1821,10 @@ CREATE TABLE `medicals` (
 --
 
 INSERT INTO `medicals` (`id`, `id_visitor`, `diagnosa`, `keluhan`, `saran`, `fee`, `created_at`, `updated_at`) VALUES
-(1, 10, 'Hipertensi esensial (primer)', 'pusing sakit kepala', 'jaga kesehatan ya', 45000.00, '2019-04-30 04:20:57', '2019-04-30 04:20:57'),
-(2, 11, 'hamil + hipertensi', 'pusing', 'jangan lupa makan', 45000.00, '2019-05-06 20:16:51', '2019-05-06 20:16:51'),
-(3, 12, 'hamil + hipertensi', 'pusing, ambeyen', 'jangan makan sembarang', 45000.00, '2019-05-10 23:21:23', '2019-05-10 23:21:23');
+(4, 1, 'Influensa', 'flu batuk', 'jangan minum es', '45000.00', '2019-04-12 16:48:18', '2019-04-12 16:48:18'),
+(5, 3, 'Abses perut', 'sakit perut', 'jaga kesehatan', '45000.00', '2019-04-12 16:56:47', '2019-04-12 16:56:47'),
+(6, 5, 'Anemia hemolitik', 'pusing', 'jaga kesehatan', '45000.00', '2019-04-12 16:58:20', '2019-04-12 16:58:20'),
+(7, 6, 'Anemia hemolitik', 'pusing demam', 'jaga kesehatan', '45000.00', '2019-04-13 22:21:16', '2019-04-13 22:21:16');
 
 -- --------------------------------------------------------
 
@@ -1845,9 +1860,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (134, '2019_04_14_082022_create_reseps_table', 8),
 (135, '2019_04_19_012331_create_carts_table', 9),
 (136, '2019_04_21_110836_create_checkouts_table', 10),
-(137, '2019_04_22_154832_create_save_transaksis_table', 11),
-(138, '2019_05_02_070854_create_resepsionis_table', 12),
-(139, '2019_05_02_133742_create_admins_table', 13);
+(137, '2019_04_22_154832_create_save_transaksis_table', 11);
 
 -- --------------------------------------------------------
 
@@ -1859,7 +1872,7 @@ CREATE TABLE `obats` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nm_obat` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `golongan` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga` float NOT NULL,
+  `harga` double NOT NULL,
   `satuan` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stok` int(11) NOT NULL,
   `status` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1874,11 +1887,57 @@ CREATE TABLE `obats` (
 --
 
 INSERT INTO `obats` (`id`, `nm_obat`, `golongan`, `harga`, `satuan`, `stok`, `status`, `ket`, `gambar`, `created_at`, `updated_at`) VALUES
-(2, 'BENOSON N CR 15G', 'Salep', 48650, '/tube', 50, '0', 'betametason 0.1% + neomisin sulfat 0.5%. Peradangan pada kulit atau mukosa yang disertai infeksi bakteri', 'avatar/ipa8V6jPL5BAoiKLoSKaAPliEekwmxZpurKjWa0y.jpeg', '2019-04-09 04:41:05', '2019-04-09 04:41:05'),
-(3, 'CANDESARTAN DEXA 8MG TAB', 'Tablet', 6655, '/tablet', 0, '1', 'hipertensi, pengobatan pada pasien gagal jantung dan gangguan fungsi sistolik ventrikel kiri ketika obat penghambat ACE tidak ditolerir', 'avatar/YJTfe3TxOp0NVq7cRzxpvOROcDQfF1sR2P8XQ6cO.png', '2019-04-09 04:44:11', '2019-04-09 04:44:11'),
-(4, 'ATORVASTATIN 20MG TAB', 'Tablet', 3250, '/tube', 50, '0', 'menurunkan kolesterol total, LDL-cholesterol, apolipoprotein B & triglycerides pada hiperkolesterolemia, hiperlipidaemia.', 'avatar/2MkcAyWmogtdloIRFoGoT0gkFO02NmuwP2qqv3yq.jpeg', '2019-04-09 04:46:26', '2019-04-09 04:46:26'),
-(5, 'AMLODIPINE BERNO 5MG TAB', 'Tablet', 1250, '/tablet', 50, '0', 'untuk hipertensi dan angina', 'avatar/VbfuJkEZsC3p5wSva1mkXVM2XW4x3YQCoE4Ekdib.jpeg', '2019-04-09 04:48:06', '2019-04-09 04:48:06'),
-(6, 'PANADOL COLD FLU REG TAB 10S', 'Tablet', 6555, '/strip', 50, '0', 'meringankan gejala flu seperti demam, sakit kepala, hidung tersumbat dan bersin bersin disertai batuk.', 'avatar/qXqTZvLo30zAhJB3yBOJJ1JK3CKMX4KulayF7Gd6.jpeg', '2019-04-17 19:22:19', '2019-04-17 19:22:19');
+(1, 'Benoson M CR 5G', 'Salep', 78.214, '/tube', 50, '0', 'peradangan pada kulit atau mukosa yang disertai infeksi bakteri', 'avatar/bEozj2P41rgiT3AbujVV0GNIv2tXwwAUvrwoKTGp.jpeg', '2019-04-09 04:39:31', '2019-04-09 04:39:31'),
+(2, 'BENOSON N CR 15G', 'Salep', 47.833, '/tube', 50, '0', 'betametason 0.1% + neomisin sulfat 0.5%. Peradangan pada kulit atau mukosa yang disertai infeksi bakteri', 'avatar/ipa8V6jPL5BAoiKLoSKaAPliEekwmxZpurKjWa0y.jpeg', '2019-04-09 04:41:05', '2019-04-09 04:41:05'),
+(3, 'CANDESARTAN DEXA 8MG TAB', 'Tablet', 6.402, '/tablet', 0, '1', 'hipertensi, pengobatan pada pasien gagal jantung dan gangguan fungsi sistolik ventrikel kiri ketika obat penghambat ACE tidak ditolerir', 'avatar/YJTfe3TxOp0NVq7cRzxpvOROcDQfF1sR2P8XQ6cO.png', '2019-04-09 04:44:11', '2019-04-09 04:44:11'),
+(4, 'ATORVASTATIN 20MG TAB', 'Tablet', 5.644, '/tube', 50, '0', 'menurunkan kolesterol total, LDL-cholesterol, apolipoprotein B & triglycerides pada hiperkolesterolemia, hiperlipidaemia.', 'avatar/2MkcAyWmogtdloIRFoGoT0gkFO02NmuwP2qqv3yq.jpeg', '2019-04-09 04:46:26', '2019-04-09 04:46:26'),
+(5, 'AMLODIPINE BERNO 5MG TAB', 'Tablet', 1.478, '/tablet', 50, '0', 'untuk hipertensi dan angina', 'avatar/VbfuJkEZsC3p5wSva1mkXVM2XW4x3YQCoE4Ekdib.jpeg', '2019-04-09 04:48:06', '2019-04-09 04:48:06'),
+(6, 'PANADOL COLD FLU REG TAB 10S', 'Tablet', 6.402, '/strip', 50, '0', 'meringankan gejala flu seperti demam, sakit kepala, hidung tersumbat dan bersin bersin disertai batuk.', 'avatar/qXqTZvLo30zAhJB3yBOJJ1JK3CKMX4KulayF7Gd6.jpeg', '2019-04-17 19:22:19', '2019-04-17 19:22:19');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `obat_orders`
+--
+
+CREATE TABLE `obat_orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_order` bigint(20) UNSIGNED NOT NULL,
+  `id_obat` bigint(20) UNSIGNED NOT NULL,
+  `qty` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `obat_orders`
+--
+
+INSERT INTO `obat_orders` (`id`, `id_order`, `id_obat`, `qty`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2019-02-25 22:06:46', '2019-02-25 22:06:47');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_pembeli` bigint(20) UNSIGNED NOT NULL,
+  `total_price` double(8,2) UNSIGNED NOT NULL,
+  `invoice` char(119) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('SUBMIT','PROCESS','FINISH','CANCEL') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `orders`
+--
+
+INSERT INTO `orders` (`id`, `id_pembeli`, `total_price`, `invoice`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 85000.00, '', 'PROCESS', '2019-01-31 02:21:15', '2019-02-25 22:06:46');
 
 -- --------------------------------------------------------
 
@@ -1905,8 +1964,7 @@ CREATE TABLE `pasiens` (
 INSERT INTO `pasiens` (`id`, `name`, `age`, `gender`, `address`, `hp`, `bpjs`, `created_at`, `updated_at`) VALUES
 (1, 'Rina anjari', 16, 'Female', 'Cilengkrang 1 no 30', '081224630757', 'BPJ00888467S', '2019-04-09 04:33:38', '2019-04-09 04:33:38'),
 (2, 'Lela Armani', 5, 'Female', 'Cilengkrang 2 no 30', '085663223552', 'BPJ00888468S', '2019-04-09 04:34:01', '2019-04-09 04:34:01'),
-(3, 'Rana Azhara', 16, 'Female', 'Cilengkrang 1 no 30', '5555555', 'BPJ00888466S', '2019-05-06 20:13:51', '2019-05-06 20:13:51'),
-(5, 'raka iqbal', 21, 'Male', 'Cilengkrang 2 no 30', '085663223552', 'BPJ00888467S', '2019-05-10 23:18:43', '2019-05-10 23:18:43');
+(3, 'Rana Azhara', 21, 'Female', 'cileunyi no 30', '02263075716', 'BPJ00888468S', '2019-04-09 04:34:56', '2019-04-09 04:34:56');
 
 -- --------------------------------------------------------
 
@@ -1942,39 +2000,22 @@ CREATE TABLE `reseps` (
 --
 
 INSERT INTO `reseps` (`id`, `visitor_id`, `obat_id`, `dosis`, `konsumsi`, `jumlah`, `created_at`, `updated_at`) VALUES
-(20, 11, 5, '2x3 hari', 'diminum setelah makan', 3, '2019-05-06 23:19:34', '2019-05-06 23:19:34'),
-(21, 12, 2, '3x1 hari', 'diminum setelah makan', 2, '2019-05-10 23:21:42', '2019-05-10 23:21:42'),
-(22, 10, 4, '2x1 hari', 'diminum sebelum makan', 2, '2019-05-13 09:14:46', '2019-05-13 09:14:46');
+(12, 3, 5, '3x1 hari', 'diminum sebelum makan', 1, '2019-04-15 04:27:38', '2019-04-15 04:27:38'),
+(17, 1, 2, '2x1 hari', 'diminum sebelum makan', 1, '2019-04-15 04:38:52', '2019-04-15 04:38:52'),
+(18, 1, 5, '2x1 hari', 'diminum sebelum mkn', 1, '2019-04-15 04:39:05', '2019-04-15 04:39:05'),
+(19, 6, 2, '2x3 hari', 'diminum sebelum makan', 2, '2019-04-19 07:26:40', '2019-04-19 07:26:40');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sale`
+-- Struktur dari tabel `save_transaksi`
 --
 
-CREATE TABLE `sale` (
-  `sale_id` varchar(45) NOT NULL,
-  `barang_id` varchar(45) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `total` float NOT NULL,
-  `tanggal` datetime NOT NULL
+CREATE TABLE `save_transaksi` (
+  `save_transaksi_id` varchar(45) NOT NULL,
+  `nama` varchar(119) NOT NULL,
+  `code` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `sale`
---
-
-INSERT INTO `sale` (`sale_id`, `barang_id`, `qty`, `total`, `tanggal`) VALUES
-('15b688b2-b006-49ff-91fb-a01b42746ff2', '4', 3, 13500, '2019-04-30 05:41:59'),
-('2cd99a46-3973-41f6-8c97-1d4292801a3d', '3', 1, 6655, '2019-04-28 10:49:51'),
-('2f1d21ec-024f-4d0d-86dc-dd1374620b7d', '5', 3, 13500, '2019-04-30 05:41:59'),
-('70972e49-8775-4a39-8c2a-5ce49890dc6f', '4', 1, 3250, '2019-05-13 16:28:16'),
-('726f4b27-5b0b-44b0-b412-9fdb92283f1e', '5', 2, 2500, '2019-05-07 03:20:21'),
-('730b3b10-fec6-4600-9807-262b55089d11', '2', 1, 48650, '2019-05-11 06:25:06'),
-('8050d598-69a4-4330-ae79-5d5677318349', '2', 2, 97300, '2019-04-28 11:06:46'),
-('874b27ed-85fa-43ec-8987-c20072fc552a', '3', 1, 6655, '2019-04-30 05:59:43'),
-('aa775aa6-ce57-47d9-9553-740b9cdf7b62', '4', 3, 13500, '2019-04-30 05:33:19'),
-('c1247db3-4f17-4702-bb7c-0aa21048c8bb', '5', 3, 13500, '2019-04-30 05:33:19');
 
 -- --------------------------------------------------------
 
@@ -1990,6 +2031,13 @@ CREATE TABLE `save_transaksis` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `save_transaksis`
+--
+
+INSERT INTO `save_transaksis` (`save_transaksi_id`, `nama`, `user_id`, `code`, `created_at`, `updated_at`) VALUES
+('719dfb8d-fd93-433b-a02f-f661bd60f2ed', 'TRX001_Rina', 1, 'dae3b418-e995-4d59-a802-f318246efa6f', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2031,15 +2079,6 @@ CREATE TABLE `temp_transaksi` (
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `temp_transaksi`
---
-
-INSERT INTO `temp_transaksi` (`temp_transaksi_id`, `code`, `barang_id`, `qty`) VALUES
-('30354059-bd00-41d8-842a-ca96f87d7dc2', 'cfec00b3-f39d-4edb-8c16-d2985c3ca497', '3', 1),
-('60cb3b0a-e493-4e9b-9ae4-bd51e7c7f24e', '002d1a01-8f88-44df-9b5d-344c1f73bfda', '4', 1),
-('cee9e28a-7d81-48c7-b1c7-772a4e4e88b2', 'a87c3833-e1e8-4f70-b4a3-6e7f30beb97e', '1', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -2064,14 +2103,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Ricard Irwan', 'admin', 'admin@gmail.com', NULL, '$2y$10$6W32yF1cEQZupiSBx69Zu.qntdZXhH5cUr3fJNqpqZMR/NLUs1peK', 'admin', NULL, '2019-04-04 03:34:05', '2019-04-04 03:34:05'),
-(2, 'Icha Septiani', 'frontofficer', 'front_officer.azelaic@gmail.com', NULL, '$2y$10$w4pyKeRCtxNmZh90PUz7IO2npPiLZkXrw6Ho.BclSACi20Z.la7M2', 'frontoffice', NULL, '2019-04-04 03:38:59', '2019-04-04 03:38:59'),
-(3, 'Zahra Nisa', 'apoteker', 'apoteker.azelaic@gmail.com', NULL, '$2y$10$1MnZLbMAAum08FV2NG.njeBg0LDBZgO8JPW6Ew6PsIfmX9tfUphpC', 'apoteker', NULL, '2019-04-04 03:44:28', '2019-04-04 03:44:28'),
-(4, 'Megautami', 'kasir', 'kasir@gmail.com', NULL, '$2y$10$CjH5qaDbh8s0MhDQoKyE/u6OqUb5GgAT5QJs2gx2EFj1cPCyAwshG', 'kasir', NULL, '2019-04-27 19:41:10', '2019-04-27 19:41:10'),
-(6, 'Lela Armani', 'apoteker2', 'lela@gmail.com', NULL, '$2y$10$kOKE/cYxrSxZLl3hVP48t..slOOczU/LaCtzl.fxEMG9YK6dk4Tf6', 'apoteker', NULL, '2019-05-05 20:05:25', '2019-05-05 20:05:25'),
-(8, 'Rana Azhara', 'admin3', 'rana@gmail.com', NULL, '$2y$10$.B2Mr84QMNPjswhkjRDlOevjsq040SsMT3lpGNx6NTvpXMGSZIwmC', 'admin', NULL, '2019-05-07 00:25:31', '2019-05-07 00:25:31'),
-(9, 'Fakhri Syifaurrahman', 'admin_fakhri', 'fakhri@gmail', NULL, '$2y$10$hP6R4wWLxkO9JHZ71s1lMuDUNputuU8jrLGUPnbCEuTUd5GIKrOmC', 'admin', NULL, '2019-05-13 08:43:16', '2019-05-13 08:43:16'),
-(12, 'riri', 'apoteker_riri', 'riri@gmail.com', NULL, '$2y$10$YLwZXc6AV//H/jgwySm2IuFxfYZ2R9bDo3BVVrBFyMZSA21uX77X6', 'apoteker', NULL, '2019-05-13 08:48:14', '2019-05-13 08:48:14');
+(1, 'Admin', 'admin', 'admin@gmail.com', NULL, '$2y$10$6W32yF1cEQZupiSBx69Zu.qntdZXhH5cUr3fJNqpqZMR/NLUs1peK', 'admin', NULL, '2019-04-04 03:34:05', '2019-04-04 03:34:05'),
+(2, 'Front Officer', 'frontofficer', 'front_officer.azelaic@gmail.com', NULL, '$2y$10$w4pyKeRCtxNmZh90PUz7IO2npPiLZkXrw6Ho.BclSACi20Z.la7M2', 'frontoffice', NULL, '2019-04-04 03:38:59', '2019-04-04 03:38:59'),
+(3, 'Apoteker', 'apoteker', 'apoteker.azelaic@gmail.com', NULL, '$2y$10$1MnZLbMAAum08FV2NG.njeBg0LDBZgO8JPW6Ew6PsIfmX9tfUphpC', 'apoteker', NULL, '2019-04-04 03:44:28', '2019-04-04 03:44:28');
 
 -- --------------------------------------------------------
 
@@ -2084,7 +2118,6 @@ CREATE TABLE `visits` (
   `id_dokter` bigint(20) UNSIGNED NOT NULL,
   `id_pasien` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status_obat` enum('0','1','2') COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_kunjungan` date DEFAULT NULL,
   `updated_kunjungan` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2093,14 +2126,22 @@ CREATE TABLE `visits` (
 -- Dumping data untuk tabel `visits`
 --
 
-INSERT INTO `visits` (`id`, `id_dokter`, `id_pasien`, `status`, `status_obat`, `tgl_kunjungan`, `updated_kunjungan`) VALUES
-(10, 1, 1, 'checked', '1', '2019-04-30', '2019-04-30'),
-(11, 1, 3, 'checked', '2', '2019-05-07', '2019-05-07'),
-(12, 2, 5, 'checked', '2', '2019-05-11', '2019-05-11');
+INSERT INTO `visits` (`id`, `id_dokter`, `id_pasien`, `status`, `tgl_kunjungan`, `updated_kunjungan`) VALUES
+(1, 1, 1, 'checked', '2019-04-09', '2019-04-09'),
+(3, 2, 3, 'checked', '2019-04-09', '2019-04-09'),
+(5, 2, 2, 'checked', '2019-04-09', '2019-04-09'),
+(6, 1, 3, 'checked', '2019-04-14', '2019-04-14');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `checkouts`
+--
+ALTER TABLE `checkouts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `checkouts_user_id_foreign` (`user_id`);
 
 --
 -- Indeks untuk tabel `code`
@@ -2141,6 +2182,22 @@ ALTER TABLE `obats`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `obat_orders`
+--
+ALTER TABLE `obat_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `obat_orders_id_order_foreign` (`id_order`),
+  ADD KEY `obat_orders_id_obat_foreign` (`id_obat`);
+
+--
+-- Indeks untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `invoice` (`invoice`),
+  ADD KEY `orders_id_pembeli_foreign` (`id_pembeli`);
+
+--
 -- Indeks untuk tabel `pasiens`
 --
 ALTER TABLE `pasiens`
@@ -2161,10 +2218,10 @@ ALTER TABLE `reseps`
   ADD KEY `reseps_obat_id_foreign` (`obat_id`);
 
 --
--- Indeks untuk tabel `sale`
+-- Indeks untuk tabel `save_transaksi`
 --
-ALTER TABLE `sale`
-  ADD PRIMARY KEY (`sale_id`);
+ALTER TABLE `save_transaksi`
+  ADD PRIMARY KEY (`save_transaksi_id`);
 
 --
 -- Indeks untuk tabel `save_transaksis`
@@ -2207,10 +2264,16 @@ ALTER TABLE `visits`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `checkouts`
+--
+ALTER TABLE `checkouts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `code`
 --
 ALTER TABLE `code`
-  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `code_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `diagnosas`
@@ -2228,13 +2291,13 @@ ALTER TABLE `dokters`
 -- AUTO_INCREMENT untuk tabel `medicals`
 --
 ALTER TABLE `medicals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT untuk tabel `obats`
@@ -2243,16 +2306,28 @@ ALTER TABLE `obats`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT untuk tabel `obat_orders`
+--
+ALTER TABLE `obat_orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `pasiens`
 --
 ALTER TABLE `pasiens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `reseps`
 --
 ALTER TABLE `reseps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `schedules`
@@ -2264,23 +2339,42 @@ ALTER TABLE `schedules`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `visits`
 --
 ALTER TABLE `visits`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
+-- Ketidakleluasaan untuk tabel `checkouts`
+--
+ALTER TABLE `checkouts`
+  ADD CONSTRAINT `checkouts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `visits` (`id`) ON DELETE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `medicals`
 --
 ALTER TABLE `medicals`
   ADD CONSTRAINT `medicals_id_visitor_foreign` FOREIGN KEY (`id_visitor`) REFERENCES `visits` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `obat_orders`
+--
+ALTER TABLE `obat_orders`
+  ADD CONSTRAINT `obat_orders_id_obat_foreign` FOREIGN KEY (`id_obat`) REFERENCES `obats` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `obat_orders_id_order_foreign` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_id_pembeli_foreign` FOREIGN KEY (`id_pembeli`) REFERENCES `visits` (`id`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `reseps`

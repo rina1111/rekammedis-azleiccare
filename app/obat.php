@@ -11,6 +11,9 @@ class obat extends Model
 
     public function orders(){
  return $this->belongsToMany('App\order');
-}
 
+}
+public function reseps(){
+  return $this->hasMany('App\resep');
+}
 }

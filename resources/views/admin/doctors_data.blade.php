@@ -17,18 +17,7 @@
     <ul>
 
 
-      <li>
-        <a class='animated-arrow' href="{{ route('register') }}">
-          <span class='the-arrow -left'>
-            <span class='shaft'></span>
-          </span>
-          <span class='main'>
-            <span class='text' style="font-size:12px;">
-              Add Employee
-            </span>
-          </span>
-        </a>
-      </li>
+
       <li>
         <a class='animated-arrow' data-toggle="modal" href='#myModal'>
           <span class='the-arrow -left'>
@@ -69,18 +58,7 @@
           </a>
         </li>
 
-        <li>
-          <a class="animated-arrow" data-toggle="modal" href="#myModal1">
-          <span class='the-arrow -left'>
-            <span class='shaft'></span>
-          </span>
-          <span class='main'>
-            <span class='text' style="font-size:12px;">
-            Employee Data
-            </span>
-          </span>
-        </a>
-      </li>
+
     </ul>
       @endsection
 
@@ -92,14 +70,12 @@
       <li class="nav-item" style="font-size:12px;">
         <a style="color:white;"  class="nav-link " href="#">Patient Report</a>
       </li>
-      <li class="nav-item"  style="font-size:12px;">
-        <a style="color:white;" class="nav-link" href="#">Medical Record Report</a>
-      </li>
+
       <li class="nav-item"  style="font-size:12px; ">
         <a style="color:white;" class="nav-link" href="#">Drug Report</a>
       </li>
       <li class="nav-item" style="font-size:12px;">
-          <a  style="color:white;" class="nav-link"  href="#">Payment Report</a>
+          <a  style="color:white;" class="nav-link"  href="#">Sales Report</a>
       </li>
     </ul>
       @endsection
@@ -146,12 +122,12 @@
             <td>{{ $data->specialist}}</td>
             <td>{{ $data->address}}</td>
             <td>{{ $data->hp}}</td>
-            <td>@if($data->avatar)
-                <img src="{{asset('storage/'.$data->avatar)}}" width="70px"/>
-                @else
-                N/A
-                @endif
-          </td>
+              <td>@if($data->avatar)
+                  <img src="{{asset('storage/'.$data->avatar)}}" width="70px"/>
+                  @else
+                  N/A
+                  @endif
+            </td>
           <td>@if($data->status_dokter=='ada')<a href=''  class="btn btn-success btn-sm"> <i class="fas fa-check"></i>Avaible</a>
                @else ($data->status_dokter=='tidak ada')<a href=''  class="btn btn-danger btn-sm"> <i class="fas fa-times"></i>Not Avaible</a> @endif</td>
           <td>
@@ -252,11 +228,11 @@
   </div>
   </div>
   <!------endmodal---->
-
+  <script type="text/javascript">
+    $('.dropdown-toggle').dropdown()
+  </script>
   @endsection
     </body>
-    <script type="text/javascript">
-      $('.dropdown-toggle').dropdown()
-    </script>
+
   </html>
   @endsection

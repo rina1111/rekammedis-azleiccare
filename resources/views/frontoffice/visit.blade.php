@@ -67,7 +67,19 @@
                                       @endforeach
                                 </select>
                             </div>
-                              <label for="jam" style="color:black;">{{'Status'}}</label><hr style="background-color:white;">
+                            <hr>
+                            <div class="group card-name">
+
+                                <label for="jam" style="color:black;">{{'Rx Status'}}</label><br><hr style="background-color:white;">
+                            <select class="form-control" name="status_obat">
+                              <option value="0">Not Avaible</option>
+
+                            </select>
+                          </div>
+                          <hr>
+
+                              <label for="jam" style="color:black; font-size:16px;" >{{'Medical Status'}}</label><hr style="background-color:white;">
+
                               <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"  value="checked">
                                 <label class="custom-control-label" for="customSwitch1">Have been Checked</label>
@@ -76,7 +88,11 @@
                                 <input type="checkbox" class="custom-control-input"  name="status" value="not checked "  id="customSwitch2">
                                 <label class="custom-control-label" for="customSwitch2">Not Checked Yet</label>
 
+
+
+
                               <hr>
+
                             <button id="submit" type="submit" class="btn btn-secondary">
                                 {{ __('Additional Visit') }}
                             </button>

@@ -13,21 +13,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body style="background-color:lightgrey;">
 
     @section('navbar')
     <ul class="nav nav-tabs">
       <li class="nav-item" style="font-size:12px;">
-        <a style="color:white;"  class="nav-link " href='{{url('apoteker/index')}}'>Darshboard</a>
+        <a  style="color:white;"   class="nav-link " href='{{url('apoteker/index')}}'>Darshboard</a>
       </li>
     <li class="nav-item" style="font-size:12px;">
-      <a  class="nav-link active " href='{{url('apoteker/obat')}}'>Medicine Data</a>
+      <a  class="nav-link  active " href='{{url('apoteker/obat')}}'>Medicine Data</a>
     </li>
 
     <li class="nav-item" style="font-size:12px;">
       <a  style="color:white;" class="nav-link " href='{{url('apoteker/resepobat')}}'>Doctor's Prescription </a>
     </li>
+    <li><a  style="color:white;"  class="nav-link " href="{{ url('apoteker/transaction') }}">New Medicine Transaction <span class="glyphicon glyphicon-saved" aria-hidden="true"></span></a></li>
+    <li class="dropdown">
+  <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Stored Transaction </a>
+                         <ul class="dropdown-menu">
+                           <?php
+                             $tersimpan = \DB::table('save_transaksis')->get();
+                           ?>
+                           @foreach($tersimpan as $ts)
+                           <li><a href="{{ url('open-transaksi/'.$ts->code) }}">{{ $ts->nama }}</a></li>
+                           @endforeach
+                         </ul>
+                       </li>
+  </ul>
     @endsection
     @section('content')
 
@@ -139,27 +153,27 @@
                         <input type="text" class="form-control" name="nm_obat" id="nm_obat" >
 
                         <hr>
-                        <div class="form-row">
-                         <div class="form-group col-md-4">
+
+
                            <label for="inputCity">Type of Medicine</label>
                            <input type="text" name="golongan" class="form-control" id="golongan">
 
-                         </div>
-                         <div class="form-group col-md-3">
+
+
                            <label for="inputState">Price</label>
                             <input type="text" name="harga" class="form-control" id="harga">
 
-                         </div>
-                         <div class="form-group col-md-3">
+
+
+
                            <label for="inputState">Item</label>
                             <input type="text" name="satuan" class="form-control" id="satuan">
 
-                         </div>
-                         <div class="form-group col-md-2">
+
+
                            <label for="inputZip">Stock</label>
                            <input type="text" name="stok" class="form-control" id="stok">
 
-                         </div>
                          <hr>
                                 <label for="inputZip">Status</label>
                                 <select class="form-control" name="status">
@@ -171,7 +185,7 @@
                                 <label for="inputCity">Photo</label><hr>
                             <input class="form-control" type="file" name="gambar" value="">
                          <label for="inputCity">Info</label><hr>
-                      <textarea name="ket" rows="5" cols="80"></textarea>
+                      <textarea name="ket" rows="5" cols="50  "></textarea>
 
                           <div class="modal-footer">
                             <button class="btn btn-warning" type="submit" >

@@ -88,8 +88,7 @@
               <td>{{ $value->konsumsi }}</td>
               <td>{{ $value->jumlah }}</td>
               <td >
-
-                <a href="/delete/{{$value->id}}" class="delete-modal btn btn-info btn-danger btn-sm " data-id_resep="{{$value->id}}"  data-id_visitor="{{$value->visitor_id}}" data-obat="{{$value->obat_id}}"
+                <a data-toggle='modal' href="#modal-hapus" class="delete-modal btn btn-info btn-danger btn-sm " data-id_resep="{{$value->id}}"  data-id_visitor="{{$value->visitor_id}}" data-obat="{{$value->obat_id}}"
                   data-dosis="{{$value->dosis}}"  data-konsumsi="{{$value->konsumsi}}"  data-jumlah="{{$value->jumlah}}">
                   <i class="fa fa-trash"></i>
                 </a>
@@ -179,6 +178,23 @@
   </div>
 </div>
 </div>
+<div class="modal modal-danger fade" id="modal-hapus" >
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color:maroon;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <h4 class="modal-title">x</h4>
+      </div>
+      <div class="modal-body">
+        <h4 style="color:white;"><b><i>Are you sure want to delete data ?</i></b></h4>
+      </div>
+      @foreach($resep as $value)
+      <div class="modal-footer">
+        <a href="/rx/{{$value->id}}/delete" class="btn btn-outline btn-warning">Yes</a>
+      </div>
+      @endforeach
+    </div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!---autocomplatescript---->

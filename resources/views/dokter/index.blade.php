@@ -114,6 +114,7 @@
 
         <div id="content-wrapper">
         <div class="container">
+          @include('sweet::alert')
           <div class="wrapper">
               <div class="container" style="height:100%">
                   <article class="part card-details">
@@ -174,8 +175,8 @@
               <input type="hidden" name="id" id="id" value="">
                 <label for="jam" style="color:white; font-size:20px; text-align:center;" >{{'Status'}}</label><hr>
               <select class="form-control" name="status_dokter" id="status">
-                <option value="checked">Avaible</option>
-                <option value="not checked">Not Avaible</option>
+                <option value="ada">Avaible</option>
+                <option value="tidak ada">Not Avaible</option>
               </select>
             </div>
             <div class="modal-footer">

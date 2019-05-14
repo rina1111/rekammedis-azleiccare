@@ -33,15 +33,13 @@
     @endsection
 
     @section('isi')
-    <div class="row">
-      @if(session('sukses'))
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>{{session('sukses')}}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
-      @endif
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> Hi </h1><br>
+    <span>  <p class="lead">Welcome to the Front Office Page</p></span>
+
+  </div>
+</div>
 
     </div>
   </body>

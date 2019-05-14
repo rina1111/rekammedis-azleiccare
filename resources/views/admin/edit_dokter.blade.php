@@ -92,14 +92,12 @@
     <li class="nav-item" style="font-size:12px;">
       <a  class="nav-link active" href="#">Patient Report</a>
     </li>
-    <li class="nav-item"  style="font-size:12px;">
-      <a style="color:white;" class="nav-link" href="#">Medical Record Report</a>
-    </li>
+
     <li class="nav-item"  style="font-size:12px; ">
       <a style="color:white;" class="nav-link" href="#">Drug Report</a>
     </li>
     <li class="nav-item" style="font-size:12px;">
-        <a  style="color:white;" class="nav-link"  href="#">Payment Report</a>
+        <a  style="color:white;" class="nav-link"  href="#">Sales Report</a>
     </li>
   </ul>
     @endsection

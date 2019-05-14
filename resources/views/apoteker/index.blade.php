@@ -14,6 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   </head>
   <body style="background-color:lightgrey;">
 
@@ -29,6 +31,18 @@
     <li class="nav-item" style="font-size:12px;">
       <a  style="color:white;" class="nav-link " href='{{url('apoteker/resepobat')}}'>Doctor's Prescription </a>
     </li>
+    <li><a  style="color:white;"  class="nav-link " href="{{ url('apoteker/transaction') }}">New Medicine Transaction <span class="glyphicon glyphicon-saved" aria-hidden="true"></span></a></li>
+    <li class="dropdown">
+  <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Stored Transaction </a>
+                         <ul class="dropdown-menu">
+                           <?php
+                             $tersimpan = \DB::table('save_transaksis')->get();
+                           ?>
+                           @foreach($tersimpan as $ts)
+                           <li><a href="{{ url('open-transaksi/'.$ts->code) }}">{{ $ts->nama }}</a></li>
+                           @endforeach
+                         </ul>
+                       </li>
   </ul>
     @endsection
     @section('content')
@@ -41,25 +55,15 @@
         @endif
 
       </div>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+    @section('isi')
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"> <i style="font-size: 72px;" class="	fas fa-mortar-pestle"></i> </h1><br>
+    <span>  <p class="lead">Welcome to the Pharmacist's Page</p></span>
 
-            </div>
-            <div class="modal-body">
-              <form method="POST" action="">
-                  @csrf
-                <div class="form-group">
-                  <label for="username" class="col-form-label" style="color:black;">{{ __('Username') }}</label>
-                  <input id="username" type="text" class="form-control">
-                </div>
-
-          </form>
-          </div>
-        </div>
-      </div>
+  </div>
+</div>
+    @endsection
   </body>
 </html>
 @endsection

@@ -1,99 +1,301 @@
-@extends('layouts.app')
-@section('isi')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class=" col-form-label text-md-right">{{ __('Name') }}</label>
 
 
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-
-                        <div class="form-group row">
-                            <label for="username" class=" col-form-label text-md-right">{{ __('Username') }}</label>
-                              <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required>
-
-                                @if ($errors->has('username'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-form-label text-md-right">{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{{asset('css/master.css')}}">
+    <link rel="stylesheet" href="{{asset('css/card.css')}}">
+  </head>
+  <body style="background-color:grey;" >
+<div class="container-fluid" style="background-image:url(https://www.ecampusnews.com/files/2016/07/healthcare.jpg);opacity:1; ">
 
 
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
+                @if(\Session::has('alert'))
+                          <div class="alert alert-danger">
+                              <div>{{ Session::get('alert') }}</div>
+                          </div>
+                      @endif
+                      @if(\Session::has('alert-success'))
+                          <div class="alert alert-success">
+                              <div>{{ Session::get('alert-success') }}</div>
+                          </div>
+                      @endif
+    <div class="wrapper">
+      <div class="login-text" >
+        <button class="cta"><i class="fas fa-chevron-down fa-1x"></i></button>
+        <div class="text">
+          <h1>Register to Have Account </h1>
+          <hr>
+          <br>
+          <form method="POST" action="{{ route('register') }}">
+              @csrf
 
-                        <div class="form-group row">
-                            <label for="level " class=" col-form-label text-md-right">{{ __('Level') }}</label>
-                              <select id="level"  class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}" name="level" value="{{ old('level') }}" required>
-                                <option value="admin">Admin</option>
-                                <option value="frontoffice">Front Office</option>
-                                <option value="apoteker">Apoteker</option>
-                                <option value="kasir">Kasir</option>
-                                <option value="dokter">dokter</option>
-                              </select>
-
-                                @if ($errors->has('level'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('level') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+              <div class="form-group row">
+                <div class="col-6">
+                  <label for="name" class=" col-form-label text-md-right">{{ __('Name') }}</label>
 
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                      <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                      @if ($errors->has('name'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('name') }}</strong>
+                          </span>
+                      @endif
+              </div>
+              <div class="col-6">
+                <label for="email" class="col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
                 </div>
-            </div>
+                </div>
+
+
+              <div class="form-group row">
+                <div class="col-6">
+                  <label for="username" class=" col-form-label text-md-right">{{ __('Username') }}</label>
+                    <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required>
+
+                      @if ($errors->has('username'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('username') }}</strong>
+                          </span>
+                      @endif
+                </div>
+                <div class="col-6">
+                  <label for="password" class="col-form-label text-md-right">{{ __('Password') }}</label>
+                      <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                      @if ($errors->has('password'))
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                      @endif
+                </div>
+                  </div>
+
+              <div class="form-group row">
+                <div class="col-6">
+                  <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+
+                      <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                </div>
+                <div class="col-6">
+                    <label for="level " class=" col-form-label text-md-right">{{ __('Level') }}</label>
+                      <select id="level"  class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}" name="level" value="{{ old('level') }}" required>
+                        <option value="admin">Admin</option>
+                        <option value="frontoffice">Front Office</option>
+                        <option value="apoteker">Apoteker</option>
+                        <option value="kasir">Kasir</option>
+                        <option value="dokter">dokter</option>
+                      </select>
+
+                        @if ($errors->has('level'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('level') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                  </div>
+
+
+
+
+                      <button type="submit" class="btn btn-primary">
+                          {{ __('Register') }}
+                      </button>
+
+          </form>
         </div>
+      </div>
+      <div class="call-text"style="background-image:url(https://cdn.painfreelivinglife.com/2013/04/PFL020118.jpg)">
+        <a href="#back"class="btn btn-dark" >Back</a>
+
+      </div>
+
     </div>
+    <style media="screen">
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: #e7e7e7;
+    }
+    .wrapper {
+      width: 800px;
+      height: 600px;
+      position: relative;
+      margin: 3% auto;
+      box-shadow: 2px 18px 70px 0px #9D9D9D;
+      overflow: hidden;
+    }
+
+    .login-text {
+      width: 800px;
+      height:450px;
+      background: linear-gradient(to left, grey, lightblue);
+      position: absolute;
+      top: -300px;
+      box-sizing: border-box;
+      padding: 6%;
+      transition: all 0.5s ease-in-out;
+      z-index: 11;
+    }
+
+    .text {
+      margin-left: 20px;
+      color: #fff;
+      display: none;
+      transition: all 0.5s ease-in-out;
+      transition-delay: 0.3s;
+
+      a, a:visited {
+          font-size: 36px;
+          color: #fff;
+          text-decoration: none;
+          font-weight: bold;
+          display: block;
+      }
+
+      hr {
+          width: 10%;
+          float: left;
+          background-color: #fff;
+          font-size: 16px;
+      }
+
+      input {
+          margin-top: 30px;
+          height: 40px;
+          width: 300px;
+          border-radius: 2px;
+          border: none;
+          background-color: #444;
+          opacity: 0.6;
+          outline: none;
+          color: #fff;
+          padding-left: 10px;
+      }
+
+      input[type=text] {
+          margin-top: 60px;
+      }
+
+      button {
+          margin-top: 60px;
+          height: 40px;
+          width: 140px;
+          outline: none;
+      }
+
+      .login-btn {
+          background: #fff;
+          border: none;
+          border-radius: 2px;
+          color: #696a86;
+      }
+
+    }
+
+    .cta {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #696a86;
+      border: 2px solid #fff;
+      position: absolute;
+      bottom: -30px;
+      left: 370px;
+      color: #fff;
+      outline: none;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    .call-text {
+      background-color: #fff;
+      width: 800px;
+      height: 450px;
+      position: absolute;
+      bottom: 0;
+      padding: 10%;
+      box-sizing: border-box;
+      text-align: center;
+
+      h1 {
+          font-size: 42px;
+          margin-top: 10%;
+          color: #696a86;
+
+          span {
+              color: #333;
+              font-weight: bolder;
+
+          }
+      }
+
+      button {
+          height: 40px;
+          width: 180px;
+          border: none;
+          border-radius: 20px;
+          background: linear-gradient(to left, #ab68ca, #de67a3);
+          color: #fff;
+          font-weight: bolder;
+          margin-top: 30px;
+          cursor: pointer;
+          outline: none;
+      }
+    }
+
+    .show-hide {
+      display: block;
+    }
+
+    .expand {
+      transform: translateY(300px);
+    }
+
+    </style>
+
+    <script type="text/javascript">
+    var cta = document.querySelector(".cta");
+    var check = 0;
+
+    cta.addEventListener('click', function(e){
+      var text = e.target.nextElementSibling;
+      var loginText = e.target.parentElement;
+      text.classList.toggle('show-hide');
+      loginText.classList.toggle('expand');
+      if(check == 0)
+      {
+          cta.innerHTML = "<i class=\"fas fa-chevron-up\"></i>";
+          check++;
+      }
+      else
+      {
+          cta.innerHTML = "<i class=\"fas fa-chevron-down\"></i>";
+          check = 0;
+      }
+    })
+    </script>
 </div>
-@endsection
+  </body>
+</html>

@@ -26,6 +26,10 @@
     <li class="nav-item" style="font-size:12px;">
       <a  style="color:white;" class="nav-link " href='{{url('apoteker/resepobat')}}'>Doctor's Prescription </a>
     </li>
+    <li class="nav-item" style="font-size:12px;">
+      <a  style="color:white;" class="nav-link " href='{{url('apoteker/transaction')}}'>Medicine Transaction</a>
+    </li>
+
     </ul>
     @endsection
     @section('content')

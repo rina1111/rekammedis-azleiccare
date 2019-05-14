@@ -10,7 +10,7 @@
             {{ session('status') }}
         </div>
     @endif
-
+  @include('sweet::alert')
     @section('navbar')
     <ul class="nav nav-tabs">
       <li class="nav-item" style="font-size:12px;">

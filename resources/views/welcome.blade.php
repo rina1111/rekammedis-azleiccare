@@ -54,7 +54,11 @@
       </div>
 
       <div class="modal-buttons">
-        <a href="" class="">Forgot your password?</a>
+
+
+    
+
+
         <button class="input-button" style="background-color:#203e4a;">Login</button>
       </div>
     </div>

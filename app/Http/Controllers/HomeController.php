@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
+use App\User;
 use Illuminate\Http\Request;
 class HomeController extends Controller
 {
@@ -28,8 +29,9 @@ class HomeController extends Controller
     {
       if (auth()->check()&&  Auth::user()->level == 'admin')
       {
-        $login='Admin';
-        return view('admin.index')->with('login');
+        $data=User::all();
+
+        return view('admin.index',['data'=>$data]);
       }
       elseif (auth()->check()&& Auth::user()->level == 'apoteker')
       {
@@ -40,6 +42,11 @@ class HomeController extends Controller
       {
         $login='Front Office';
         return view('frontoffice.index')->with('login');
+      }
+      elseif (auth()->check()&& Auth::user()->level == 'kasir')
+      {
+        $login='Front Office';
+        return view('kasir.index')->with('login');
       }
 
       else{

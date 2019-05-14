@@ -43,6 +43,7 @@
       </div>
       @endif
 
+  @include('sweet::alert')
             <div class="wrapper">
                 <div class="container" style="height:100%";>
                     <article class="part card-details">

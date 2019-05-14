@@ -13,21 +13,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
+
   </head>
   <body style="background-color:lightgrey;">
 
     @section('navbar')
     <ul class="nav nav-tabs">
       <li class="nav-item" style="font-size:12px;">
-        <a style="color:white;"  class="nav-link " href="">Darshboard</a>
+        <a style="color:white;"  class="nav-link " href="">Cart</a>
       </li>
-    <li class="nav-item" style="font-size:12px;">
-      <a  style="color:white;" class="nav-link " href=''>Medicine Data</a>
-    </li>
 
-    <li class="nav-item" style="font-size:12px;">
-      <a   class="nav-link active " href=''>Doctor's Prescription </a>
-    </li>
     @endsection
     @section('content')
 
@@ -65,67 +60,114 @@
         </div>
       </div>
         @endif
+        <script>
+         $(document).ready(function(){
+           $("#CartMsg").hide();
+           //$('#CartTotal').hide();
+           @foreach($data as $pro)
+           $("#upCart{{$pro->id}}").on('change keyup', function(){
+             var newQty = $("#upCart{{$pro->id}}").val();
+             var rowID = $("#rowID{{$pro->id}}").val();
+             $.ajax({
+                 url:'{{url('/cart/updatecart')}}',
+                 data:'rowID=' + rowID + '&newQty=' + newQty,
+                 type:'get',
+                 success:function(response){
+                   $("#CartMsg").show();
+                   console.log(response);
+                   $("#CartMsg").html(response);
+                 }
+             });
+           });
+           @endforeach
 
 
-                      <div class="wrapper" style="border-radius:25px;">
-                    <div class="collapse" id="collapseExample" >
-                      <div class="card card-body">
-                        <form style="background-color:#203e4a; border-style:solid; border-color:lightblue; padding:10px;">
+         });
+         </script>
+              @if(Cart::count()>0)
+         <div class="wrapper" style="border-radius:25px;">
+             <div class="container-fluid" style="background-color:#203e4a; border-radius:10px;border-style:solid; border-color:lightblue;height:100%;">
+               <div class="cart">
+                   <div class="col-sm-12">
+                     <h2 style="color:white;">Shopping Basket</h2>
+                     <div class="row">
+                         <div class="col-sm-8">
+                           @if(isset($msg))
+                           <div class="alert alert-info">{{$msg}}</div>
+                           @endif
+                           <div class="alert alert-info" id="CartMsg"></div>
+                            <hr>
+               <table id="cart" class="table table-hover table-condensed">
+           <thead>
+           <tr>
+             <th style="width:50%;color:white;">Product</th>
+             <th style="width:10%;color:white;">Price</th>
+             <th style="width:8%;color:white;">Quantity</th>
+             <th style="width:22%;color:white;" class="text-center">Subtotal</th>
+             <th style="width:10%;color:white;"></th>
+           </tr>
+         </thead>
+         <tbody>
+           @foreach($data as $pro)
 
-                            <label  for="inputPassword4" style="color:white; font-family:times; font-size:16px;">Visitor ID</label><hr style="background-color:white;">
-                            <input type="text" class="form-control" name="" value="">
+           <tr>
+             <td style="color:white;" data-th="Product">
+               <div class="row">
+                 <div class="col-sm-4 hidden-xs"><img src="{{asset('storage/'.$pro->options->img)}}" alt="..." class="img-responsive"/></div>
+                 <div class="col-sm-8">
+                   <h4 class="nomargin">{{$pro->name}}</h4>
+                   <p>{{$pro->options->size}}</p>
+                 </div>
+               </div>
+             </td>
+             <td style="color:white;" data-th="Price">Rp.{{$pro->price}} {{$pro->options->item}}</td>
+             <td data-th="Quantity">
+               <input type="hidden" value="{{$pro->rowId}}"
+                id="rowID{{$pro->id}}"/>
+               <input type="number" max="10" min="1"
+               value="{{$pro->qty}}" class="qty-fill"
+               id="upCart{{$pro->id}}">
+             </td>
+             <td style="color:white;" data-th="Subtotal" class="text-center">{{$pro->subtotal}}</td>
+             <td class="actions" data-th="">
+            <a class="cart-remove btn btn-info btn-sm" href=""><i class="fas fa-sync"></i></a>
+               <a href="{{url('cart/remove')}}/{{$pro->rowId}}" class="cart-remove btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+             </td>
+           </tr>
+           @endforeach
+         </tbody>
+         <tfoot>
+           <tr class="visible-xs">
+             <td style="color:white" class="text-center"><strong></strong></td>
+           </tr>
+           <tr>
+             <td><a href="#" class="btn btn-warning"><i class="fas fa-angle-left"></i> Continue Shopping</a></td>
+             <td colspan="2" class="hidden-xs"></td>
+             <td style="color:white"  class="hidden-xs text-center"><strong>Total Rp. {{Cart::subtotal()}}</strong></td>
+             <td><a href="{{url('apoteker/checkout')}}"  class="btn check_out btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+           </tr>
+         </tfoot>
+       </table>
+      </div>
+      </div>
+    </div>
+  </div>
 
+    @else
+    <div class="row">
+       <div class="col-md-2 col-md-offset-5 top25">
+        <img src="asset('image/empty.png')"
+        class="img-response"/>
+        <br><br>
+        <p style="text-align:center">Nothing in the bag<br><br>
+        <a href="{{url('products')}}"
+        class="btn btn-fill btn-primary">Continue Shopping</a>
+        </p>
+      </div>
+      </div>
 
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                              <label  for="inputPassword4" style="color:white; font-family:times; font-size:16px;">Medicine</label><hr style="background-color:white;">
-                              <select class="nm_obat form-control" name="" id="nm_obat">
-                              <option value="">Choose</option>
-                            
-                              </select>
-                          </div>
+    @endif
 
-                          <div class="form-group col-md-6">
-                            <label  for="inputPassword4" style="color:white; font-family:times; font-size:16px;">Quantity</label><hr style="background-color:white;">
-                            <input type="text" class="form-control" name="" value="">
-                          </div>
-
-
-                        </div>
-
-
-                        <button type="submit" class=" btn btn-outline-success">Add</button>
-
-                      </form>
-                      <hr>
-                      <div class="wrapper" style="background-color:#203e4a; border-style:solid; border-color:lightblue; padding:10px;">
-                        <table class="table table-striped" style="color:white">
-                          <thead>
-                            <tr>
-                              <th>No</th>
-                              <th>Medicine</th>
-                              <th>Price</th>
-                              <th>Quantity</th>
-                              <th>Total</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @foreach($order as $orders)
-                            <tr>
-                              <td>{{$orders->invoice_number}}</td>
-                            </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                    </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

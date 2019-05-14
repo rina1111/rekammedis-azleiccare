@@ -260,11 +260,11 @@
               <h1>Login As Medical Receptionist </h1>
               <hr>
               <br>
-              <form action="{{ url('dokter/login') }}" method="post">
+              <form action="{{ url('frontoffice/login') }}" method="post">
                                   {{ csrf_field() }}
                                   <div class="form-group">
                                       <label>Username</label>
-                                      <input class="form-control" type="text" name="username" placeholder="Username">
+                                      <input class="form-control" type="text" name="username_front" placeholder="Username">
                                   </div>
                                   <div class="form-group">
                                       <label>Password</label>
@@ -390,7 +390,7 @@
           h1 {
               font-size: 42px;
               margin-top: 10%;
-              color: #696a86;
+              color: #x 696a86;
 
               span {
                   color: #333;
@@ -864,7 +864,7 @@
 
 <div class="panel" id="admin">
   <div class='login'>
-  <h2 class="ku" style="text-align:center">login</h2>
+  <h2 class="ku" style="text-align:center"> Admin Login</h2>
   <form class="" action="{{ route('login') }}" method="post">
     @csrf
     <input name='username' class="form-control" placeholder='Username' type='text'>

@@ -7,8 +7,10 @@ use DB;
 use DataTables;
 use Validator;
 use Response;
+use Alert;
 use Illuminate\Support\Facades\Input;
 use App\http\Requests;
+
 class ResepDokter extends Controller
 {
  public function indexku($id){
@@ -58,7 +60,6 @@ class ResepDokter extends Controller
 }
 }
 public function delete(Request $request,$id){
-  $post = DB::table('reseps')->find($id);
 
 
 $post= DB::table('reseps')
@@ -67,20 +68,9 @@ $post= DB::table('reseps')
       ->delete();
 
 
-        $visit=DB::table('visits')
-        ->join('pasiens', 'pasiens.id', '=', 'visits.id_pasien')
-        ->join('dokters', 'dokters.id', '=', 'visits.id_dokter')
-        ->leftjoin('medicals','visits.id', '=', 'medicals.id_visitor')
-        ->where ('visits.id', $id)
-        ->get();
-        $data=DB::table('visits')->find($id);
-        $resep=DB::table('reseps')
-                ->join('visits', 'visits.id', '=', 'reseps.visitor_id')
-                ->join('obats', 'obats.id', '=', 'reseps.obat_id')
-                ->where ('visits.id', $id)
-                  ->get();
-                   $obat=DB::table('obats')->get();
-                   return view ('/dokter/Rx1',['visit'=> $visit, 'data'=>$data, 'resep'=>$resep,'obat'=>$obat,'post'=>$post]);
+      Alert::message('Welcome back!');
+
+                   return redirect ('/dokter/visitor');
 
 }
 

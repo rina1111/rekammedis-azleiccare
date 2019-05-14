@@ -8,11 +8,21 @@ use Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\obat;
+use App\resep;
+use Cart;
+use Uuid;
+
 class ObatController extends Controller
 {
   public function index_apoteker()
   {
-    return view('apoteker/index');
+    $code = \DB::table('code')->where('code_id',1)->value('code');
+    if($code == '0'){
+      $code = Uuid::generate(4);
+
+  }
+
+  	return view('apoteker/index',['code'=>$code]);
   }
     public function index(){
       $data=obat::all();
@@ -78,52 +88,88 @@ class ObatController extends Controller
 
     public function resepobat()
     {
-      $visit=DB::table('pasiens')
-        ->leftjoin('visits', 'pasiens.id', '=', 'visits.id_pasien')
+      $visit=DB::table('visits')
+
       ->get();
       return view('apoteker/resepobat',['visit'=> $visit]);
     }
     public function resepobatdetail(Request $request,$id)
     {
 
-      $visit=DB::table('pasiens')
-      ->leftjoin('visits', 'pasiens.id', '=', 'visits.id_pasien')
-      ->leftjoin('medicals','visits.id', '=', 'medicals.id_visitor')
-      ->join('dokters', 'dokters.id', '=', 'visits.id_dokter')
-      ->where ('visits.id', $id)
-      ->get();
+      $visit=DB::table('visits')
+                ->join('pasiens', 'pasiens.id', '=', 'visits.id_pasien')
+                ->join('dokters', 'dokters.id', '=', 'visits.id_dokter')
+                ->leftjoin('medicals','visits.id', '=', 'medicals.id_visitor')
+                ->where ('visits.id', $id)
+                ->get();
+
+
       $obat=DB::table('reseps')
               ->join('visits', 'visits.id', '=', 'reseps.visitor_id')
               ->join('obats', 'obats.id', '=', 'reseps.obat_id')
               ->where ('visits.id', $id)
                 ->get();
+
         $dataobat=DB::table('obats')->get();
-        $masterobat = DB:: table('obats')->where('id', $request->get('obats'))->first();
-              $data =  new Transaksi();
+        $code = \DB::table('code')->where('code_id',1)->value('code');
+      	if($code == '0'){
+      		$code = Uuid::generate(4);
+      	}
 
-
-              if($vMasterProduk->id_jenis_produk == "1"){
-                  $data->id_user = Session::get('id');
-                  $data->uid_produk = $request->get('produk');
-                  $data->harga_transaksi = $vMasterProduk->harga_produk;
-                  $data->diskon_transaksi = $vMasterProduk->diskon;
-                  $data->total_transaksi = $total;
-                  $data->status_transaksi = "0";
-                  $data->image_transaksi = "#";
-
-                  if($data->save()){
-                      return redirect('/user/transaksi')->with('alert-success', 'Berhasil menambahkan Transaksi!');
-                  }
-      return view('apoteker/detailresep',['visit'=> $visit,'obat'=> $obat,'dataobat'=> $dataobat,'order'=> $order]);
+      return view('apoteker/detailresep',['visit'=> $visit,'obat'=> $obat,'dataobat'=> $dataobat,'code'=> $code]);
     }
-public function findobat(Request $request,$id)
+
+public function findobat(Request $obat_id,$id)
 {
-  $visit=DB::table('reseps')
-  ->leftjoin('visits', 'reseps.visitor_id', '=', 'visits.id')
-  ->leftjoin('obats','reseps.obat_id', '=', 'obats.id')
-  ->where ('obats.id', $id)
-  ->get();
+
+  $pro = obat::find($id);
+      $add = Cart::add(['id' => $pro->id, 'name' => $pro->nm_obat,
+        'qty' => 1, 'price' => $pro->harga,'items' => $pro->satuan,
+        'options' =>[
+        'img' => $pro->gambar,
+        'size' => $pro->ket,
+        'item' => $pro->satuan,
+        ]]);
+       if($add){
+         return view('apoteker/cart',[
+           'data' => Cart::content()
+         ]);
+       }
 }
+public function cart(Request $request, $id)
+{
+  $cart=Cart::content();
+  return view('apoteker.cart', [
+        'data' => $cart]);
+
+}
+
+public function updatecart(Request $request){
+   $qty = $request->newQty;
+   $rowId = $request->rowID;
+   // update cart
+   Cart::update($rowId,$qty);
+   echo "Cart updated successfully";
+ }
+ public function removeItem($rowId){
+   Cart::remove($rowId);
+   return back();
+ }
+
+ public function updatestatusobat(Request $request,$id)
+ {
+
+   $status_obat=$_POST['status_obat'];
+
+   $visit= DB::table('visits')
+              ->where('visits.id', $id)
+             ->update([
+
+               'status_obat'=> $status_obat,
+             ]);
+
+      return redirect('/apoteker/resepobat')->with('sukses','Status has been updated');
+ }
 
 function fetchobat(Request $request)
          {
@@ -143,10 +189,5 @@ function fetchobat(Request $request)
           }
          }
 
- public function hargaobat(Request $request)
-{
-  $data=DB::table('obats')->select('harga')->where('id',$request->id)->first();
-  return response()->json($data);
-}
 
 }

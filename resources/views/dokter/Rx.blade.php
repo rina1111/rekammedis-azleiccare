@@ -82,7 +82,7 @@
                                      <td>
 
 
-                                           <a href="/rx/{{$resep->id}}/delete " class='btn btn-danger btn-sm'  > <i class="fas fa-minus"></i></a>
+                                           <a data-toggle='modal' href="#modal-hapus " class='btn btn-danger btn-sm'  > <i class="fas fa-minus"></i></a>
 
 
                                      </td>
@@ -150,6 +150,22 @@
                 </div>
               </div>
               </div>
+
+              <div class="modal modal-danger fade" id="modal-hapus" >
+                <div class="modal-dialog">
+                  <div class="modal-content" style="background-color:maroon;">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                      <h4 class="modal-title">x</h4>
+                    </div>
+                    <div class="modal-body">
+                      <h4 style="color:white;"><b><i>Are you sure want to delete data ?</i></b></h4>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="{{ url('/rx/{{$resep->id}}/delete') }}" class="btn btn-outline btn-warning">Yes</a>
+                    </div>
+                  </div>
 
   </body>
 <script type="text/javascript">

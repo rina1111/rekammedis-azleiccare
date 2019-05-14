@@ -48,7 +48,7 @@
                         @guest
 
                             @if (Route::has('register'))
-                              
+
                             @endif
                         @else
     </div>
@@ -92,8 +92,8 @@
            setInterval(showTime, 500);
            //-->
            </script>
-
-       <a class="btn btn-outline-info btn-sm" > Hi! {{ Auth::user()->name }} </a>
+ <a class="btn btn-outline-info btn-sm" > Hi! {{ Auth::user()->level}} </a>
+       <a class="btn btn-outline-info btn-sm" ><i class="fas fa-user"></i> {{ Auth::user()->name }} </a>
        <a class="btn btn-outline-info btn-sm" style="color:lightblue; "  href="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">

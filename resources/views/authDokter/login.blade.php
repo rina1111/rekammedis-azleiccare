@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="call-text"style="background-image:url(https://cdn.painfreelivinglife.com/2013/04/PFL020118.jpg)">
-        <a href="{{ url('welcome') }}"class="btn btn-dark" >Back</a>
+        <a href="{{url('welcome')}}"class="btn btn-dark" >Back</a>
 
       </div>
 

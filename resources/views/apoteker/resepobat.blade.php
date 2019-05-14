@@ -13,21 +13,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   </head>
   <body style="background-color:lightgrey;">
 
     @section('navbar')
     <ul class="nav nav-tabs">
       <li class="nav-item" style="font-size:12px;">
-        <a  style="color:white;" class="nav-link " href='{{url('apoteker/index')}}'>Darshboard</a>
+        <a  style="color:white;"   class="nav-link " href='{{url('apoteker/index')}}'>Darshboard</a>
       </li>
     <li class="nav-item" style="font-size:12px;">
-      <a  style="color:white;" class="nav-link " href='{{url('apoteker/obat')}}'>Medicine Data</a>
+      <a style="color:white;" class="nav-link" href='{{url('apoteker/obat')}}'>Medicine Data</a>
     </li>
 
     <li class="nav-item" style="font-size:12px;">
       <a   class="nav-link active " href='{{url('apoteker/resepobat')}}'>Doctor's Prescription </a>
     </li>
+    <li><a  style="color:white;"  class="nav-link " href="{{ url('apoteker/transaction') }}">New Medicine Transaction <span class="glyphicon glyphicon-saved" aria-hidden="true"></span></a></li>
+    <li class="dropdown">
+  <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Stored Transaction </a>
+                         <ul class="dropdown-menu">
+                           <?php
+                             $tersimpan = \DB::table('save_transaksis')->get();
+                           ?>
+                           @foreach($tersimpan as $ts)
+                           <li><a href="{{ url('open-transaksi/'.$ts->code) }}">{{ $ts->nama }}</a></li>
+                           @endforeach
+                         </ul>
+                       </li>
   </ul>
     @endsection
     @section('content')
@@ -64,25 +78,28 @@
                                     <th>No</th>
                                 <th>Date</th>
                                     <th>Visitor ID</th>
-                                    <th>Patient Name</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
+                                    <th>Medical Status </th>
+                                    <th>Rx Status</th>
                                     <th>Rx</th>
                                    <th>Action</th>
 
                                   </tr>
-                                  {{ csrf_field() }}
+
                                   @foreach($visit as $index => $visitor)
                                   <tr>
                                     <td>{{$index+1}}</td>
                                     <td>{{$visitor->tgl_kunjungan}}</td>
                                     <td>{{$visitor->id}}</td>
-                                      <td>{{$visitor->name}}</td>
-                                      <td>{{$visitor->age}}</td>
-                                      <td>{{$visitor->gender}}</td>
+                                    <td> @if($visitor->status=='checked')<a href=''  class="btn btn-success btn-sm"> <i class="fas fa-check"></i>Have Been Checked</a>
+                                         @else ($visitor->status=='not checked')<a href=''  class="btn btn-danger btn-sm"> <i class="fas fa-times"></i>Not Checked Yet</a> @endif
+                                    </td>
+                                    <td> @if($visitor->status_obat==0)<a hdata-toggle='modal' href='#editstatus_resep'  class="btn btn-outline-danger btn-sm "> <i class="	fas fa-file-prescription"></i>Not Avaible</a>
+                                       @elseif ($visitor->status_obat==1)<a data-toggle='modal' href='#editstatus_resep'  class="btn btn-outline-warning btn-sm"> <i class="fas fa-file-prescription"></i>Processed</a>
+                                       @elseif ($visitor->status_obat==2)<a data-toggle='modal' href='#editstatus_resep'  class="btn btn-outline-success btn-sm"> <i class="fas fa-file-prescription"></i>Process Done</a>
+                                        @endif</td>
 
                                             <td><a href="/apoteker/{{$visitor->id}}/detailresep" class="btn btn-success">  <i class="fas fa-file-prescription"></a></td>
-
+                                              <td> <a href="" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> </a> </td>
                                   </tr>
                                 @endforeach
                                 </table>
@@ -94,7 +111,35 @@
                     </div>
 
 <!----------add obat--->
+<div class="modal fade " id="editstatus_resep" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal-dialog" role="document" >
+  <div class="modal-content"style="background-color:lightblue;">
+    <div class="modal-header" style="background-color:grey;">
 
+    <h3 style="color:white; align:center;">Update Rx Status</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="" action="/visit/{{$visitor->id}}/updatestatusobat" method="post">
+        {{method_field("")}}
+      @csrf
+      <input type="hidden" name="visit_id" id="id" value="">
+        <label for="jam" style="color:white; font-size:20px; text-align:center;" >{{'Status'}}</label><hr>
+      <select class="form-control" name="status_obat" id="status">
+        <option value="1">Process</option>
+        <option value="2">Done</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-secondary" id="btn-save">Update</button>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
 
     <!----editobat--->
 

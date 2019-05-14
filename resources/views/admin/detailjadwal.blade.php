@@ -18,18 +18,7 @@
 
 <ul>
 
-          <li>
-            <a class='animated-arrow' href="{{ route('register') }}">
-              <span class='the-arrow -left'>
-                <span class='shaft'></span>
-              </span>
-              <span class='main'>
-                <span class='text' style="font-size:12px;">
-                  Add Employee
-                </span>
-              </span>
-            </a>
-          </li>
+
           <li>
             <a class='animated-arrow' data-toggle="modal" href='#myModal'>
               <span class='the-arrow -left'>
@@ -71,37 +60,24 @@
               </a>
             </li>
 
-            <li>
-              <a class="animated-arrow" data-toggle="modal" href="#myModal1">
-              <span class='the-arrow -left'>
-                <span class='shaft'></span>
-              </span>
-              <span class='main'>
-                <span class='text' style="font-size:12px;">
-                Employee Data
-                </span>
-              </span>
-            </a>
-          </li>
+
         </ul>
     @endsection
 
     @section('navbar')
     <ul class="nav nav-tabs">
       <li class="nav-item" style="font-size:12px;">
-        <a  class="nav-link active" href="#">Darshboard</a>
+        <a style="color:white;"  class="nav-link" href="{{url('/home')}}">Darshboard</a>
       </li>
     <li class="nav-item" style="font-size:12px;">
-      <a style="color:white;"  class="nav-link " href="#">Patient Report</a>
+      <a style="color:white;"  class="nav-link " href="{{url('admin/patientreport')}}">Patient Report</a>
     </li>
-    <li class="nav-item"  style="font-size:12px;">
-      <a style="color:white;" class="nav-link" href="#">Medical Record Report</a>
-    </li>
+
     <li class="nav-item"  style="font-size:12px; ">
-      <a style="color:white;" class="nav-link" href="#">Drug Report</a>
+      <a style="color:white;" class="nav-link" href="{{url('admin/drugreport')}}">Drug Report</a>
     </li>
     <li class="nav-item" style="font-size:12px;">
-        <a  style="color:white;" class="nav-link"  href="#">Payment Report</a>
+        <a  style="color:white;" class="nav-link"  href="{{url('admin/salesreport')}}">Sales Report</a>
     </li>
   </ul>
     @endsection

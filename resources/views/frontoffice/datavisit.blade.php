@@ -66,9 +66,10 @@
                                                             <th style=" color:white; ">No</th>
                                                             <th style="width:30%; height:25%; color:white;">Pasien ID</th>
                                                             <th style="width:30%; height:25%; color:white;">Doctor of Choice</th>
-                                                                <th style="width:30%; height:25%; color:white;">Status</th>
+                                                                <th style="width:30%; height:25%; color:white;">Medical Status</th>
+                                                                      <th style="width:30%; height:25%; color:white;">Rx Status</th>
                                                             <th style="width:30%; height:25%; color:white;">Date Visit</th>
-                                                          
+
                                                             <th style="width:30%; height:25%; color:white;">Action</th>
                                                           </tr>
                                                         </thead>
@@ -80,6 +81,14 @@
                                                               <td  style="color:white;" >{{$visit->id_dokter}}</td>
                                                               <td> @if($visit->status=='checked')<a href=''  class="btn btn-success btn-sm"> <i class="fas fa-check"></i>Have Been Checked</a>
                                                                    @else ($visit->status=='not checked')<a href=''  class="btn btn-danger btn-sm"> <i class="fas fa-times"></i>Not Checked Yet</a> @endif
+                                                              </td>
+                                                              <td> @if($visit->status_obat==0)<a href=''  class="btn btn-outline-danger btn-sm "> <i class="	fas fa-file-prescription"></i>Not Avaible</a>
+                                                                 @elseif ($visit->status_obat==1)<a href=''  class="btn btn-outline-warning btn-sm"> <i class="fas fa-file-prescription"></i>Processed</a>
+                                                                 @elseif ($visit->status_obat==2)<a href=''  class="btn btn-outline-success btn-sm"> <i class="fas fa-file-prescription"></i>Done</a>
+                                                                  @endif
+
+
+
                                                               </td>
                                                               <td  style="color:white;" >{{$visit->tgl_kunjungan}}</td>
 
